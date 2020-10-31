@@ -17,6 +17,11 @@
 #include "arith/call.h"
 #include "arith/test.h"
 #include "arith/je.h"
+#include "arith/cmp.h"
+#include "arith/add.h"
+#include "arith/adc.h"
+#include "arith/sbb.h"
+#include "arith/sub.h"
 
 #include "logic/and.h"
 #include "logic/or.h"

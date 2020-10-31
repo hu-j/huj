@@ -1,21 +1,24 @@
 #include "cpu/exec/template-start.h"
 
-#define instr cmp
+#define instr add
 
 static void do_execute () {
-	DATA_TYPE result = op_dest->val - op_src->val;
+	DATA_TYPE result = op_dest->val + op_src->val;
 	int len = (DATA_BYTE << 3) - 1;
-    cpu.CF = op_dest->val < op_src->val;
-    cpu.SF = result >> len;
     int x1,x2;
+    cpu.CF = (result < op_dest->val);
+    cpu.SF = result >> len;
+
     x1 = op_dest->val >> len;
     x2 = op_src->val >> len;
-    cpu.OF = (x1 != x2 && x2 == cpu.SF);
+    cpu.OF = (x1 == x2 && x1 != cpu.SF);
     cpu.ZF = !result;
+    OPERAND_W(op_dest, result);
     result ^= result >> 4;
     result ^= result >> 2;
     result ^= result >> 1;
     cpu.PF = !(result & 1);
+
 	print_asm_no_template2();
 }
 
